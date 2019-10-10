@@ -1,21 +1,21 @@
 FROM ubuntu:18.04 AS builder
 ADD . /installers
 RUN apt update && apt install -y libgtest-dev git wget curl libxml2-dev
-RUN wget -nc http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run  -O /installers/cuda_10.1.243_418.87.00_linux.run && \
+RUN wget -nc http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run  -O /installers/cuda_10.1.243_418.87.00_linux.run || true && \
     sh /installers/cuda_10.1.243_418.87.00_linux.run --silent --toolkit --toolkitpath=/usr/local/cuda-10.1 --no-opengl-libs --override --no-man-page
-RUN wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux          -O /installers/cuda_10.0.130_410.48_linux && \
+RUN wget -nc https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux          -O /installers/cuda_10.0.130_410.48_linux                   || true && \
     sh /installers/cuda_10.0.130_410.48_linux        --silent --toolkit --toolkitpath=/usr/local/cuda-10.0 --no-opengl-libs --override --no-man-page
-RUN wget https://developer.nvidia.com/compute/cuda/9.2/Prod2/local_installers/cuda_9.2.148_396.37_linux           -O /installers/cuda_9.2.148_396.37_linux && \
+RUN wget -nc https://developer.nvidia.com/compute/cuda/9.2/Prod2/local_installers/cuda_9.2.148_396.37_linux           -O /installers/cuda_9.2.148_396.37_linux                    || true && \
     sh /installers/cuda_9.2.148_396.37_linux         --silent --toolkit --toolkitpath=/usr/local/cuda-9.2  --no-opengl-libs --override --no-man-page
-RUN wget https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux             -O /installers/cuda_9.1.85_387.26_linux  && \
+RUN wget -nc https://developer.nvidia.com/compute/cuda/9.1/Prod/local_installers/cuda_9.1.85_387.26_linux             -O /installers/cuda_9.1.85_387.26_linux                     || true && \
     sh /installers/cuda_9.1.85_387.26_linux          --silent --toolkit --toolkitpath=/usr/local/cuda-9.1  --no-opengl-libs --override --no-man-page
-RUN wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run        -O /installers/cuda_9.0.176_384.81_linux-run && \
+RUN wget -nc https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda_9.0.176_384.81_linux-run        -O /installers/cuda_9.0.176_384.81_linux-run                || true && \
     sh /installers/cuda_9.0.176_384.81_linux-run     --silent --toolkit --toolkitpath=/usr/local/cuda-9.0  --no-opengl-libs --override
-RUN wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run        -O /installers/cuda_8.0.61_375.26_linux-run && \
+RUN wget -nc https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run        -O /installers/cuda_8.0.61_375.26_linux-run                 || true && \
     sh /installers/cuda_8.0.61_375.26_linux-run      --silent --toolkit --toolkitpath=/usr/local/cuda-8.0  --no-opengl-libs --override
-RUN wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2019.07-Linux-x86_64.sh                  -O /installers/Anaconda3-2019.07-Linux-x86_64.sh && \
+RUN wget -nc https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2019.07-Linux-x86_64.sh                  -O /installers/Anaconda3-2019.07-Linux-x86_64.sh            || true && \
     sh /installers/Anaconda3-2019.07-Linux-x86_64.sh -b -f -p /usr/local/anaconda3
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.sh                  -O /installers/cmake-3.15.4-Linux-x86_64.sh && \
+RUN wget -nc https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.sh                  -O /installers/cmake-3.15.4-Linux-x86_64.sh                 || true && \
     mkdir -p /usr/local/cmake && sh /installers/cmake-3.15.4-Linux-x86_64.sh --prefix=/usr/local/cmake --skip-license
 
 RUN cd /usr/src/gtest && /usr/local/cmake/bin/cmake -DCMAKE_INSTALL_PREFIX=/usr/local/gtest .. && make install/strip
