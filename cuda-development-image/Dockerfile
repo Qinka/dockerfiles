@@ -1,7 +1,7 @@
 FROM ubuntu:18.04 AS builder
 ADD . /installers
 RUN apt update && apt install -y libgtest-dev git wget curl libxml2-dev
-RUN wget -nc https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.168_418.67_linux.run  -O /installers/cuda_10.1.243_418.87.00_linux.run && \
+RUN wget -nc http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_418.87.00_linux.run  -O /installers/cuda_10.1.243_418.87.00_linux.run && \
     sh /installers/cuda_10.1.243_418.87.00_linux.run --silent --toolkit --toolkitpath=/usr/local/cuda-10.1 --no-opengl-libs --override --no-man-page
 RUN wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux          -O /installers/cuda_10.0.130_410.48_linux && \
     sh /installers/cuda_10.0.130_410.48_linux        --silent --toolkit --toolkitpath=/usr/local/cuda-10.0 --no-opengl-libs --override --no-man-page
